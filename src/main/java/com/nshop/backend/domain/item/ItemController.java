@@ -14,6 +14,7 @@ public class ItemController {
 
     @GetMapping("/api/items")
     public List<Item> getItems(){
+        System.out.println("api 요청 1");
         List<Item> items = itemRepository.findAll();
         //System.out.println(items.get(0).getName());
         return items;
