@@ -39,7 +39,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: 스프링부트 애플리케이션 빌드 # (1)
-        run: ./gradlew build
+        run: ./gradlew build -Pprofile=prod
 
       - name: 도커 이미지 빌드 # (2)
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo .
