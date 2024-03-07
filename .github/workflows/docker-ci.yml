@@ -76,7 +76,7 @@ jobs:
           
           script: |
             docker stop $(docker ps -a -f "ancestor=whwjdan12/nshop-repo" -q) 
-            docker rm $(docker ps -a -q) 
+            docker rm $(docker ps -a -f "ancestor=whwjdan12/nshop-repo" -q) 
             docker image prune -f --filter "until=12h"
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo
             nohup docker run -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo > nohup.out 2>&1 &
