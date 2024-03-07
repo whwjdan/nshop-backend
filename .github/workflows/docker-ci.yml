@@ -20,6 +20,13 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '21'
 
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'nshop'
+          mysql user: 'test'
+          mysql password: ${{ secrets.PASSWORD }}
+
       - name: application.yml 파일 생성
         run: |
           mkdir ./src/main/resources # resources 폴더 생성
@@ -71,6 +78,5 @@ jobs:
             docker stop $(docker ps -a -q) 
             docker rm $(docker ps -a -q) 
             docker image prune -f --filter "until=12h"
-            docker run --name mysql -e MYSQL_ROOT_PASSWORD=${{ secrets.PASSWORD }} -d -p 3305:3306 mysql
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo
             nohup docker run -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo > nohup.out 2>&1 &
