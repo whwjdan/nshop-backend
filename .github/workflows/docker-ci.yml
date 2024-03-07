@@ -71,5 +71,6 @@ jobs:
             docker stop $(docker ps -a -q) 
             docker rm $(docker ps -a -q) 
             docker image prune -f --filter "until=12h"
+            docker run --name mysql -e MYSQL_ROOT_PASSWORD=${{ secrets.PASSWORD }} -d -p 3306:3306 mysql
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo
             nohup docker run --net=host -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo > nohup.out 2>&1 &
