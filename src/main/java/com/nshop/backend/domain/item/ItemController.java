@@ -9,16 +9,14 @@ import java.util.List;
 @RestController
 public class ItemController {
 
-    private final ItemRepository itemRepository;
     @Autowired
-    public ItemController(ItemRepository itemRepository){
-        this.itemRepository = itemRepository;
-    }
+    ItemRepository itemRepository;
 
     @GetMapping("/api/items")
     public List<Item> getItems(){
+        System.out.println("api 요청 1");
         List<Item> items = itemRepository.findAll();
-
+        //System.out.println(items.get(0).getName());
         return items;
     }
 }

@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk
+FROM openjdk:17-jdk
 ARG JAR_FILE=build/libs/*.jar
 ADD ${JAR_FILE} nshop.jar
-ENTRYPOINT ["java","-Dspring.profiles.active=prod","-jar","/nshop.jar"]
+ENTRYPOINT ["java","-jar","/nshop.jar"]
