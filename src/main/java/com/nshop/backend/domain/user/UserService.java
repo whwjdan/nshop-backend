@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -26,4 +28,14 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public UserDto login(UserDto userDto) {
+
+        Optional<UserEntity> UserResult = userRepository.findByUsernameAndPassword(userDto.getUsername(),
+                userDto.getPassword());
+
+        UserDto userResponseDto = UserDto.of(UserResult
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+
+        return userResponseDto;
+    }
 }
