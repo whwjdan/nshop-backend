@@ -67,7 +67,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           
           script: |
-            ssh-keygen -R ${{ secrets.HOST }} # 기존 등록된 ssh키 삭제
-            docker-compose -f docker-compose.yml down
-            docker-compose -f docker-compose.yml pull
-            docker-compose -f docker-compose.yml up -d
+            scp -i ${{ secrets.SSH_KEY }} docker-compose.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu/docker-compose.yml
+            ssh -i ${{ secrets.SSH_KEY }} ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+              cd /home/ubuntu
+              docker-compose down
+              docker-compose pull
+              docker-compose up -d
+            EOF
