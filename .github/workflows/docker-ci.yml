@@ -47,11 +47,9 @@ jobs:
 
         run: ./gradlew clean build -Pprofile=prod
 
-      - name: 도커 컴포즈를 사용한 서비스 배포
-        run: |
-          cd ./ # 최상위 폴더로 이동
-          docker-compose -f docker-compose.yml up --build -d
-
+      - name: 도커 이미지 빌드 # (2)
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo .
+        
       - name: Docker Hub 로그인 # (3)
         uses: docker/login-action@v2
         with:
