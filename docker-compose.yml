@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  nshop:
+    image: $DOCKERHUB_USERNAME/nshop-repo:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    restart: always
