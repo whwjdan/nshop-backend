@@ -67,7 +67,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           
           script: |
-            cd ./ # 최상위 폴더로 이동
             ssh-keygen -R ${{ secrets.HOST }} # 기존 등록된 ssh키 삭제
             docker-compose -f docker-compose.yml down
             docker-compose -f docker-compose.yml pull
