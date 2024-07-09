@@ -69,8 +69,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           
           script: |
-            docker ps -a --filter "ancestor=nshop-repo" -q | xargs docker stop
-            docker ps -a --filter "ancestor=nshop-repo" -q | xargs docker rm
+            docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo | xargs -r sudo docker stop | xargs -r sudo docker rm
             docker image prune -f --filter "until=12h"
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo
             nohup docker run --net host -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/nshop-repo > nohup.out 2>&1 &
