@@ -75,6 +75,6 @@ jobs:
             docker-compose down
             docker-compose pull
             docker-compose up -d
-            # 현재 실행중이 아닌 12시간 이상 지난 nshop-repo가 포함된 컨테이너 이미지 삭제
-            docker images --filter "until=12h" --format '{{.Repository}}:{{.Tag}}' | grep 'nshop-repo' | xargs -I {} docker rmi {}
+            # 현재 실행중이 아닌 12시간 이상 컨테이너 이미지 삭제
+            docker image prune -f --filter "until=12h"
             
