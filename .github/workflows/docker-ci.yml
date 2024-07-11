@@ -2,7 +2,11 @@ name: nshop-docker-ci
 
 on:
   push:
-    branches: '*'
+    branches:
+      - 'cicd'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   deploy:
